@@ -1,0 +1,37 @@
+doctype html
+html
+  block variables
+  head
+    -var title = title || "Stock Ticker"
+    title #{title}
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+    link(href='https://fonts.googleapis.com/css?family=Bungee', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Varela+Round', rel='stylesheet', type='text/css')
+    link(rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.css")
+    link(href='../css/style.css', type='text/css', rel='stylesheet')
+    script(src='//code.jquery.com/jquery-1.11.0.min.js')
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+    block styles
+  body#style-1
+    header.navbar
+      h1
+        ul
+            li
+                a#logo(href='/') Stock Ticker
+            li
+                block login
+            li
+                block logout
+            li
+                block register
+            //li
+                block chat
+    block content
+    br
+    footer.footer
+        br
+        div
+            p.copy &copy; #{new Date().getFullYear()} - CS 3750 Group 4
+    block scripts
+        
+        

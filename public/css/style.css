@@ -1,0 +1,865 @@
+/*------------- Reset browser differences ------------- */
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: 'Bungee', cursive;
+}
+
+
+/* ------------ Body styles ------------ */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+	height: 100%;
+	width: 100%;
+	margin-bottom: 70px;
+	background: url("../img/bg.png") center;
+	background-position-x: -1440px;
+	background-position-y: -1846px;
+	background-color: #287b5e;
+	color:black;
+	font-family: 'Bungee', cursive;
+	font-size: 12pt;
+	max-width: 100%;
+}
+
+
+/* --------- Scrollbar styles --------- */
+
+#style-1::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 14px;
+	background-color: #ffffff;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #2d7e5e;
+}
+
+
+#chat-messages::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 6px;
+	background-color: #fff;
+}
+
+#chat-messages::-webkit-scrollbar
+{
+	width: 14px;
+	border-radius: 6px;
+	background-color: #ffffff;
+}
+
+#chat-messages::-webkit-scrollbar-thumb
+{
+	border-radius: 6px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #2d7e5e;
+}
+
+/* ------------ Header styles ------------ */
+
+/* ------ Home ------ */
+
+.navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 70px;  	
+	background-color: rgba(51, 51, 51, 0.3);
+	z-index: 99999;
+}
+
+li a {
+	color: white;
+	text-decoration: none;
+	font-size: 14pt;
+	float: right;
+	padding-left: 3%;
+	padding-top: 4px;
+}
+li :hover {
+	color: #19FF8B;
+}
+li #logo {
+	text-decoration: none;
+	color:white;
+	float: left;
+	font-size: 30pt;
+	padding-top: 0px;
+	padding-left: 20px;
+	line-height: 50px;
+}
+li #logo:visited {
+	color: white;
+}
+li #logo:hover {
+	color: #19FF8B;
+}
+
+ul {
+	position: fixed;
+	top: 10px;
+	width: 98%;
+    list-style-type: none;
+}
+
+
+/* ------------ Section styles ------------ */
+
+/* ------ Body ------ */
+
+
+.bodydiv {
+	text-align:center;
+	margin-top:5%;
+}
+h2 {
+	color: white;
+}
+.bodydiv #chat {
+	color: white;
+	/*font-size: 20pt;*/
+	margin-top: -20px;
+	margin-bottom: 4%;
+}
+.bodydiv #aa {
+	color: white;
+	margin-bottom: 30px;
+	margin-top: 130px;
+	/*font-size: 20pt;*/
+}
+#nodelogo {
+	width: 26%;
+	height: 20%;
+	margin-bottom: 14px;
+}
+
+#join {
+	width: 250px;
+	height: 100px;
+	background-color: #008eff;
+	text-align:center;
+	display: block;
+	margin:0px auto;
+	border-radius: 5px;
+	text-decoration: none;
+	margin-bottom: 6%;
+	color: #eeffff;
+	box-shadow: 6px 6px 5px rgba(20, 56, 42, 0.7);
+}
+#join:hover {
+	background-color: #0081E4;
+}
+#join:visited {
+	color: #eeffff;
+	text-decoration: none;
+}
+#joinbutton {
+	padding-top: 26px;
+}
+#little {
+	font-weight: normal;
+	font-size: 12pt;
+    line-height: 18px;
+}
+#big {
+	font-weight: bold;
+	font-size: 22pt;
+	line-height: 34px;
+}
+
+.error {
+	margin-top: 4%;
+	padding: 3%;
+	color: black;
+}
+
+.info {
+	margin: auto;
+	padding: 60px;
+	height: 20%;
+	width: 40%;
+	border-radius: 6px;
+	box-shadow: 6px 6px 5px rgba(20, 56, 42, 0.5);
+	background-color: rgba(246,246,246, 1);
+	margin-bottom: 6%;
+}
+.info p {
+	margin: auto;
+	color: #0d625f;
+	/*font-family: "Varela Round", sans-serif;*/
+	font-size: 14pt;
+	line-height: 40px;
+	text-align: left;
+}
+.info p#getstarted {
+	padding-top: 6%;
+	font-size: 16pt;
+	text-align: center;
+}
+
+
+/* -------- Login Page -------- */
+
+.logindiv {
+	margin: auto;
+	width: 42%;
+	height: 30%;
+	padding: 40px;
+	border-radius: 6px;
+	box-shadow: 6px 6px 5px rgba(20, 56, 42, 0.5);
+	background-color: rgba(246,246,246, 1);
+	margin-top: 7%;
+	margin-bottom: 1%;
+	background-color: white;
+	color: #0d625f;
+}
+
+.logindiv #login {
+	margin: auto;
+	width: 88%;
+}
+
+#wc {
+	font-size: 20pt;
+	text-align: center;
+	line-height: 34px;
+}
+
+.logindiv #ac {
+	font-size: 20pt;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+#noaccnt{
+	float: right;
+	padding-right: 10px;
+	color: #234ABC;
+}
+#noaccnt:visited{
+	color: #234ABC;
+}
+#noaccnt:hover{
+	color: #1C3C96;
+}
+
+#help{
+	padding-left: 10px;
+	line-height: 28px;
+}
+
+
+/* -------- Form Elements -------- */
+
+input[type=text], input[type=email]{
+	width:96%;
+	padding: 10px 4px 6px 10px;
+	margin-bottom: 10px;
+	border: 0px;
+	font-size: 14pt;
+	font-family: 'Varela Round', sans-serif;
+}
+
+input[type=password]{
+	width:96%;
+	padding: 2px 10px 2px 10px;
+	margin-bottom: 10px;
+	border: 0px;
+	padding-left: 5px;
+	font-size: 20pt;
+	font-family: 'Varela Round', sans-serif;
+}
+
+input[type=submit]{
+	width: 50%;
+	background-color:#2E8B57;
+	color: white;
+	border: 2px solid #297c5e;
+	font-size:16pt;
+	border-radius: 7px;
+	margin-top: 30px;
+	margin-bottom: 24px;
+	text-align: center;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #297c5e;
+}
+
+.submitdiv {
+	margin: auto;
+}
+
+#form_layout{
+	margin: 0 auto;
+    border-radius: 6px;
+    padding: 0px 50px 10px;
+    background-color: #234ABC;
+	color: white;
+    margin-bottom: 3%;
+}
+
+#form_layout1{
+	margin: 0 auto;
+    border-radius: 6px;
+    padding: 0px 50px 10px;
+    background-color: #234ABC;
+	color: white;
+    margin-bottom: 3%;
+}
+
+
+/* -------- Register Page -------- */
+
+
+.registerdiv {
+	margin: auto;
+	width: 44%;
+	height: 30%;
+	padding: 40px;
+	border-radius: 6px;
+	box-shadow: 6px 6px 5px rgba(20, 56, 42, 0.5);
+	background-color: rgba(246,246,246, 1);
+	margin-top: 7%;
+	margin-bottom: 4%;
+	background-color: white;
+	color: #0d625f;
+}
+
+.registerdiv #ac {
+	font-size: 20pt;
+	text-align: center;
+	margin-bottom: 2%;
+}
+
+.registerdiv #register {
+	margin: auto;
+	width: 88%;
+}
+
+
+.submitdiv {
+	margin: auto;
+    width: 70%;
+    border-radius: 14px;
+}
+
+.center {
+	margin: auto;
+    text-align: center;
+}
+
+.content span {
+	color: #ff5757;
+	line-height: 30px;
+	/*padding-left: 1%*/
+	font-family: 'Varela Round', sans-serif;
+}
+
+
+
+/* -------- Chat Page -------- */
+
+.chat {
+	position: relative;
+	margin: auto;
+	height: 545px;
+	width: 80%;
+	padding: 24px 20px 24px 20px;
+	border-radius: 6px;
+	box-shadow: 6px 6px 5px rgba(20, 56, 42, 0.5);
+	margin-top: 80px;
+	background-color: white;
+	color: #0d625f;
+}
+
+#chat-area {
+	width: 100%; 
+}
+
+#chat-messages {
+  	width: 97%;
+	height: 80%;
+	overflow-y: scroll;
+	padding: 10px;
+  	padding-left: 14px;
+	font-family: 'Varela Round', sans-serif;
+	font-size: 14pt;
+	line-height: 36px;
+	word-wrap: break-word;
+}
+
+strong {
+	font-size: 14pt;
+	/*color: #234ABC;*/
+}
+
+.chat #chat-name {
+	font-family: 'Varela Round', sans-serif;
+  	width: 96%;
+  	padding: 10px;
+  	border-bottom: 2px solid black;
+	margin-bottom: 4%
+}
+
+#name {
+	padding-left: 6px;
+}
+
+#send {
+	float: right;
+	width: 18%;
+	background-color:#008eff;
+	color: white;
+	border: 1px solid #008eff;
+	font-size: 14pt;
+	border-radius: 7px;
+	line-height: 44px;
+	text-align: center;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+#send:hover {
+	background-color: #0081E4;
+}
+
+#chat-text{
+  width: 72%;
+  padding: 10px;
+  max-width: 78%;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 14pt;
+  min-height: 24px;
+  margin-left: 10px;
+  border-radius: 4px;
+}
+
+.chat-status {
+  color: #bbb;
+  margin-left: 10px;
+  padding-left: 4px;
+}
+
+input:focus {
+    outline:none;
+}
+
+textarea:focus {
+    outline:none;
+}
+
+/*
+.stickybar {
+   	position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 3%;
+}
+
+.stickybar input[type=text] {
+	width: 84%; 
+	font-size: 12pt;
+	border-radius: 6px;
+	padding: 6px;
+    margin: 0;
+    border: 5px solid #2E8B57;
+}
+
+.stickybar #submit {
+	width: 12%;
+    height: 42px;
+    float: right;
+    margin: 0;
+    line-height: 38px;
+}
+*/
+
+
+/* -------- Footer -------- */
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 70px;  	
+	background-color: rgba(51, 51, 51, 0);
+	color: white;
+	font-size: 14pt;
+}
+
+.copy {
+	padding-left: 20px;
+	margin-top: 12px;
+}
+
+#about a {
+	float: right;
+	padding-right: 2%;
+	text-decoration: none;
+	color: white;
+}
+#about:visited a {
+	color: white;
+}
+#about :hover {
+	color: #19FF8B;
+}
+
+.stockList {
+	position: relative;
+    visibility: visible;
+    outline: 0px;
+    margin: 0 auto;
+    padding: 0px;
+    text-align: center;
+    font-size: 26px;
+    font-family: sans-serif;
+    background-color: rgb(255, 255, 255);
+    z-index: 100;
+    cursor: default;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(170, 170, 170);
+    overflow-x: hidden;
+    white-space: pre;
+    overflow-y: scroll;
+    left: 0px;
+    top: 100%;
+    max-height: 448.333px;
+    width: 300px;
+    margin-top: 50px;
+
+}
+
+.stock {
+	color: rgb(51, 51, 51);
+    background-color: rgb(221, 221, 221);
+    outline: 0px;
+
+}
+
+.search {
+	color: white;
+}
+
+.searchStocks {
+	margin-top: 125px;
+}
+
+::-webkit-input-placeholder {
+   font-style: italic;
+   color: lightslategray;
+}
+:-moz-placeholder {
+   font-style: italic; 
+   color: lightslategray;
+}
+::-moz-placeholder {
+   font-style: italic; 
+   color: lightslategray; 
+}
+:-ms-input-placeholder {  
+   font-style: italic;
+   color: lightslategray;
+}
+
+#mySearch {
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	padding: 3px 10px 3px 10px;
+	width: 250px;
+}
+
+
+#mySearch:hover {
+	border: 2px solid mediumseagreen;
+	
+}
+
+#addStockFinal {
+	background: mediumseagreen;
+    margin-top: 50px;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+    color: white;
+	padding: 3px 10px 3px 10px;
+}
+
+#addStockFinal:hover {
+	background:seagreen;
+	font-size: 15px;
+	
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: springgreen;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0px solid #000000;
+    width: 80%; /* Could be more or less, depending on screen size */
+    color: black;
+    font-weight: bold;
+    font-size: 30px;  
+    border-radius: 6px;  
+}
+
+.modal-content2 {
+    background-color: springgreen;
+    margin: 140px auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0px solid #000000;
+    width: 80%; /* Could be more or less, depending on screen size */
+    color: black;
+    font-weight: bold;
+    font-size: 30px;  
+    border-radius: 6px;  
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+}
+
+/* The Close Button */
+.close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/********************* CSS FOR STOCK LIST PAGE ***********************/
+
+.stock_data{
+	color: white;
+	padding: 20px;
+	padding-top: 10px;
+	margin: auto 0;
+	padding-top: 50x;
+	border-collapse: collapse;
+}
+
+.stocktable{
+	padding:5px;
+	width: 100%;
+}
+
+.stockLabel{
+	border: 1px solid #ddd;
+    padding: 8px;
+	padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: red;
+	font-weight: bold;
+	font-family: 'Bungee', 'Times New Roman', Times, serif;
+	font-size: large;
+	text-align: center;
+}
+
+.stockListRow{
+	color: black;
+}
+
+.stockListRow:nth-child(even){
+	background-color: #1db8e2
+}
+
+.stockListRow:nth-child(odd){
+	background-color: #1b91c4
+}
+
+.stockListRow:hover{
+	background-color: lawngreen;
+}
+
+.stockColumn{
+	border: 1px solid #ddd;
+    padding: 8px;
+	width: 17%;
+	text-align: right;
+}
+
+.stockColumn:nth-child(1){
+	width: 32%;
+	text-align: center;
+}
+
+.stockColumn:nth-child(2){
+	text-align: center;
+}
+
+.stockColumn:nth-child(5){
+	text-align: center;
+}
+
+.stockColumn:nth-child(6){
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.stockInputDiv{
+	text-align: center;
+	color: white;
+	outline-color: black;
+	text-shadow: black;
+	outline-width: 2px;
+	font-size: 24px;
+}
+
+.stockInputBox{
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+
+/*	CSS for Remove Button	*/
+.hot-container p { margin-top: 10px; }
+a { text-decoration: none; margin: 0 10px; }
+
+.hot-container {
+	min-height: 100px;
+	margin-top: 100px;
+	width: 100%;
+	text-align: center;
+}
+
+a.btn {
+	color: #666;
+	background-color: #eee;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 12px;
+	padding:10px 10px 22px 10px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-bottom-width: 3px;
+}
+
+	a.btn:hover {
+		background-color: #e3e3e3;
+		border-color: rgba(0,0,0,0.5);
+	}
+
+	a.btn:active {
+		background-color: #CCC;
+		border-color: rgba(0,0,0,0.9);
+	}
+
+/* red button */
+
+a.btn.btn-red {
+	background-color: #E48681;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+}
+
+a.btn.btn-red:hover {
+	background-color: #DA4F49;
+	border-color: rgba(0,0,0,0.5);
+}
+	
+a.btn.btn-red:active {
+	background-color: #B32C24;
+	border-color: rgba(0,0,0,0.9);
+}
+
+a.btn.btn-blue {
+	background-color: #0CB8ED;
+	border-color: rgba(0,0,0,0.3);
+	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	color: #FFF;
+	width:250px;
+}
+
+a.btn.btn-blue:hover {
+	background-color: #68f8AE;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+	border-color: rgba(0,0,0,0.5);
+	color:black;
+}
+	
+a.btn.btn-red:active {
+	background-color: #069844;
+	border-color: rgba(0,0,0,0.9);
+}
+
+/* input ticker to track btn */
+
+.btn{
+  background:whitesmoke;
+  width:125px;
+  height:30px;
+  padding-top:5px;
+  padding-bottom:5px;
+  color:black;
+  border-radius:4px;
+  border: black 1px solid;
+  text-align: center;
+  margin-top:10px;
+  margin-bottom:10px;
+  font-weight:800;
+  font-size:0.8em;
+  font-family: initial;
+}
+
+.btn:hover{
+  background:#2CC06B; 
+}
+
+.queryDate {
+	width: 12%;
+	margin: 8px;
+}
+
+.queryPeriod {
+	margin: 8px;
+	padding: 8px;
+}
+
+.button:hover{
+	background-color: #2ecc71;
+	border-color: rgba(0,0,0,0.5);
+}

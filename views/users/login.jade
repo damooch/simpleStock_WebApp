@@ -1,0 +1,27 @@
+block variables
+    title Login | Let's Chat
+extends ../layout
+
+block content
+    div.logindiv
+        div#login
+            h5#wc Welcome!
+            h5#ac Please Login:
+            div#form_layout1
+                form(action='login', method="post" name='login')
+                    br
+                    label Email:
+                    input(name='email', type='text', required='', autocomplete='')
+                    br
+                    label Password:
+                    input(name='password', type='password', required='', autocomplete='')
+                    div.content
+                        span #{loginError}
+                    div.submitdiv
+                        div.center
+                            input(type="submit" id="submit" value="Login")
+            div#help
+                h3 Don't have an account? 
+                    a#noaccnt(href='../users/register') Register now
+block register
+    a#login(href='/users/register') Register

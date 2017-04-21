@@ -1,0 +1,62 @@
+block variables
+    title Register | Let's Chat
+extends ../layout
+
+block scripts
+    script(src='../js/validation.js', type='text/javascript')
+
+block content    
+    div.registerdiv        
+        .content(style='color:#ff5757')
+                | 
+                span.value
+        div#register
+            h5#wc Welcome!
+            h5#ac Please Create an account:
+            div#form_layout
+                form(action="register", method="post", id="myForm")
+                    br
+                    label Screen Name (username):
+                    input#username(name='username', type='text' )
+                    .content(style='color:#ff5757')
+                        | #{invalidUsername}
+                        span.invalidUsername
+                    .content(style='color:#ff5757')
+                        | #{usernameLength}
+                        span.invalidUsername2
+                    label Email Address:
+                    input#email(name='email', type='text')
+                    .content(style='color:#ff5757')
+                        | #{invalidEmail}
+                        span.invalidEmail
+                    .content(style='color:#ff5757')
+                        | #{emailLength}
+                        span.invalidEmail2
+                    label First Name:
+                    input#firstname(name='first_name', type='text')
+                    .content(style='color:#ff5757')
+                        | #{firstnameLength}
+                        span.invalidFirstname
+                    label Last Name:
+                    input#lastname(name='last_name', type='text')
+                    .content(style='color:#ff5757')
+                        | #{lastnameLength}
+                        span.invalidLastname
+                    label Password:
+                    input#password(name='password', type='password')
+                    .content(style='color:#ff5757')
+                        | #{passMatch}
+                        span.invalidPassword
+                    label Confirm Password:
+                    input#cpassword(name='cpass', type='password')
+                    .content(style='color:#ff5757')
+                        | #{passLength}
+                        span.invalidPasswordMatch
+                    div.submitdiv
+                        div.center
+                            input(type="submit" id="submit" value="Register")
+            div#help
+                h3 Already have an account? 
+                    a#noaccnt(href='../users/login') Login
+block login
+    a#login(href='/users/login') Login

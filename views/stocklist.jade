@@ -1,0 +1,33 @@
+block variables
+	title Stock | Stock List Page
+extends layout
+
+block content
+	div.bodydiv
+		br
+		h2 Stock List Page	
+	div#stockInputDiv.stockInputDiv
+		if error
+			p.error ERROR: #{error}
+		br
+		a.btn.btn-blue(href='/stock/addStock', name='addStockRedirect') Add Stock To Watchlist
+		br
+		form(id='stockRemove-form', type='hidden', method='POST', action='')
+			input#hiddenTicker(type='hidden', name='hiddenTicker')
+	div#stocklist.stock_data
+
+
+block logout
+	a#logout(href='/users/logout') Logout
+	a#logout(href='/stock/addStock') Add Stock
+	a#logout(href='/stock/stockview') View Stock
+	a#logout(href='/stock/managemoney') Manage Money
+	
+block scripts
+	script(type='text/javascript')
+		| var finalHtml =!{JSON.stringify(stockHtml)};
+		| var tick = !{JSON.stringify(tick)};
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+	script(src='/js/watchlist.js') 
+	//- script(type='text/javascript').
+	//- 	displayWatchList(finalHtml);

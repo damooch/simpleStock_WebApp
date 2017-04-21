@@ -1,0 +1,25 @@
+block variables
+    title Home | Stock Ticker
+extends layout
+
+block content
+    div.bodydiv
+        h2#aa A
+        img#nodelogo(src='img/nodejslogo1.png', alt='nodelogo')
+        h2 Stock Ticker
+        h2 app
+        a#join(title='Stock', href='/stock/addStock')
+          #joinbutton
+            #little Look at your Stocks
+            #big TODAY!
+        div.info
+            p Stock Ticker!&reg; is a new application that allows you to check your stocks! 
+                p Simply create an account by clicking 'Register', fill out the form, then click 
+                    |'Login', and enter your email and password. You're in! Now you can check
+                    | your stocks!
+                p#getstarted Get Started today! It's FREE and Easy!
+
+block login
+    a#login(href='/users/login') Login
+block register
+    a#login(href='/users/register') Register

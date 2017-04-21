@@ -1,0 +1,29 @@
+extends layout
+
+doctype html
+html
+  head
+    title Let's Chat!
+    link(type='text/css', rel='stylesheet', href='../css/style.css')
+    link(href='https://fonts.googleapis.com/css?family=Bungee', rel='stylesheet', type='text/css')
+  body#style-1
+    header.navbar
+      h1
+        ul
+            li
+                a#logo(href='/') Let's Chat!
+            li
+                a(href='/login') Login
+            li
+                a(href='/register') Register
+            li
+                a(href='/create') Chat
+        block content
+            .error
+                h1= error.status + " " + message
+                pre #{error.stack}
+    footer.footer
+        div
+            p.copy Copyright &copy; #{new Date().getFullYear()} - CS 3750 Group 4
+                span#about 
+                    a(href='/') About

@@ -1,0 +1,49 @@
+block variables
+	title Stock | Add Stock Page
+extends layout
+
+block content
+	div.bodydiv
+		br
+		h2 Add Stock Page
+
+		div.searchStocks 
+			input.awesomplete(id="mySearch" placeholder="Search stocks here...")
+			br
+			div.modal#myModal
+				div.modal-content
+					span Stock successfully added!
+			br
+			button(name="submit" id="addStockFinal") Add Stock
+
+		//div.stockList
+			div.stock
+				b Apple
+			div.stock
+				b Google
+			div.stock
+				b Pizza
+			div.stock
+				b Samsung
+			div.stock
+				b Utah Jazz
+			div.stock
+				b Dongle
+			div.stock
+				b Funny 
+			div.stock
+				b JD Machine
+		
+block logout
+	a#logout(href='/users/logout') Logout
+	a#logout(href='/stock/stocklist') List Stock
+	a#logout(href='/stock/stockview') View Stock
+	a#logout(href='/stock/managemoney') Manage Money
+
+block scripts
+	script(src="https://rawgit.com/LeaVerou/awesomplete/gh-pages/awesomplete.min.js")
+	script(src="/js/nasdaq.js")
+	script(src="/js/nyse.js")
+	script(src="/js/autoComplete.js")
+	script(src="/js/addStock.js")
+	

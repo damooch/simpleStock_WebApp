@@ -1,0 +1,55 @@
+block variables
+	title Stock | Manage Money Page
+extends layout
+
+
+block content
+	div.bodydiv
+		br
+		h2 Manage Money
+
+		div#container.center(style='width:90%; height:400px;')
+
+		div.modal#myModal
+				div.modal-content
+					span Exceeded max allocation!
+					br
+					br
+					span Setting to max available.
+
+		div#sliders.center(name = "sliders" style='width:60%')
+
+		div#form_layout(style='width:40%')
+			form(action="managemoney", method="post", id="myForm")
+				input#hiddenDict(type='hidden', name='hiddenDict')
+				div.submitdiv
+					div.center
+						input(type="submit" id="submit" value="Save Data")
+		br
+		br
+
+		#container(style='width:100%; height:200px;')
+
+block logout
+	a#logout(href='/users/logout') Logout
+	a#logout(href='/stock/addStock') Add Stock
+	a#logout(href='/stock/stockview') View Stock
+	a#logout(href='/stock/stocklist') List Stock
+	//a#logout(href='/stock/managemoney') Money
+    
+block scripts
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+	//- link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+	//- script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+	script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+	script(src="https://code.highcharts.com/highcharts.js")
+	script(src="https://code.highcharts.com/modules/exporting.js")
+	meta(charset='utf-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1')
+	title jQuery UI Slider - Default functionality
+	link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+	script(src='https://code.jquery.com/jquery-1.12.4.js')
+	script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+	script(type='text/javascript')
+		| var stockdict =!{JSON.stringify(dict)}; 
+	script(src='/js/managemoney.js')

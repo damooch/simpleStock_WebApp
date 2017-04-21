@@ -1,0 +1,47 @@
+block variables
+	title Stock | Stock View Page
+extends layout
+block content
+	div.bodydiv
+		br
+		h2 Stock View Page
+		br
+		div.modal#myModal
+			div.modal-content2
+				span.close x
+				p#error.perror(style='padding: 20px; color: red;')
+		form#formData
+			label Date From: 
+			input.queryDate(id='from' type='date' name='dateFrom')
+			label Date To: 
+			input.queryDate(id='to' type='date' name='dateTo')
+			br
+			label.queryPeriod Daily 
+				input(type='radio' name='periodQuery' value='d')
+			label.queryPeriod Weekly 
+				input(type='radio' name='periodQuery' value='w')
+			label.queryPeriod Monthly 
+				input(type='radio' name='periodQuery' value='m')
+		button#button.btn Submit
+		br
+		div#stockCharts(style='padding-left:5%; padding-right:5%; padding-top:1%')
+
+
+block logout
+	a#logout(href='/users/logout') Logout
+	a#logout(href='/stock/addStock') Add Stock
+	a#logout(href='/stock/stocklist') List Stock
+	a#logout(href='/stock/managemoney') Manage Money
+	
+block scripts
+	script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+	script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+	script(src="https://code.highcharts.com/highcharts.js")
+	script(src="https://code.highcharts.com/modules/exporting.js")
+	script(src="https://code.highcharts.com/modules/data.js")
+	script(src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js")
+	script(src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8")
+	script(type='text/javascript')
+		| var histDict =!{JSON.stringify(histDict)};
+		| var finalHtml =!{JSON.stringify(stockHtml)};
+	script(src="/js/stockView.js")
