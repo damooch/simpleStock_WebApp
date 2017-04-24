@@ -9,6 +9,7 @@ var User = require('../models/user.js');
 var yahooFinance = require('yahoo-finance');
 var Highcharts = require('Highcharts');
 var request = require('request');
+var moment = require('moment');
 
 
 var Highcharts = require('highcharts'); // Since 4.2.0
@@ -37,22 +38,6 @@ router.get('/addStock', function (req, res, next) {
 
   res.render('stock');
 });
-/*var yahooFinance = require('yahoo-finance');
-
-yahooFinance.historical({
-  symbol: 'AAPL',
-  from: '2012-01-01',
-  to: '2012-01-05',
-  // period: 'd'  // 'd' (daily), 'w' (weekly), 'm' (monthly), 'v' (dividends only)
-}, function (err, quotes) {
-  //...
-  console.log(quotes);
-  var fs = require('fs');
-  var readline = require('readline');
-
-  res.render('stock', {quotesList: quotes});
-});
-});*/
 
 
 /****************** STOCKS ROUTER/CONTROLLER ***********************/
@@ -80,7 +65,6 @@ router.post('/stocks', function (req, res, next) {
       }, function (err, user) {
         if (err) next(err);//return res.status(500).json(err);//
 
-
         if (!user) {
         }
         else if (user) {
@@ -92,8 +76,6 @@ router.post('/stocks', function (req, res, next) {
           user.save(function (err, brady) {
             if (err) return console.error(err);
           });
-
-
         }
       }).then(function (stock) {
         console.log(stock);
@@ -114,31 +96,7 @@ router.post('/stocks', function (req, res, next) {
       console.log(err);
       return res.status(405).json(err);
     })
-
-
-  /*
-      User.findOneAndUpdate({_id: userId },{$push: { stockPercentages : s }},{upsert:true, safe:true})
-          .then(function(stock) { 
-              res.status(200).json(stock);
-          })
-          .catch(function(err){
-              console.log(err);
-              return res.status(500).json(err);
-          })
-          */
-});
-
-
-/*User.update({_id: userId },
-        {$push: { stocks : s }}, function(err, stock) {
-          if (err) {
-              return res.status(500).json(err);
-          } else {
-              res.status(200).json(stock);
-          }
-}); */
-
-//});   
+});  
 
 
 /****************************    STOCK LIST ROUTER / CONTROLLER ********************8****/
@@ -296,34 +254,11 @@ router.get('/stockview', function (req, res, next) {
       count = 0;
       var tick = "";
       // default begin and end dates
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1;
-      var yyyy = today.getFullYear();
-      if (dd < 10) {
-        dd = '0' + dd;
-      }
-      if (mm < 10) {
-        mm = '0' + mm;
-      }
-      var endDate = yyyy + '-' + mm + '-' + dd;
-      // default is set to 6 month span
-      mm = today.getMonth() + 1;
-      if (mm > 6) {
-        mm = mm - 6;
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-      } else if (mm < 6) {
-        mm = 12 - (6 - mm);
-        if (mm < 10) {
-          mm = '0' + mm;
-        }
-        yyyy = yyyy - 1;
-      }
-      var beginDate = yyyy + '-' + mm + '-' + dd;
-      console.log("\nBegin Date: " + beginDate);
-      console.log("End Date: " + endDate);
+      var today = moment().format('YYYY-MM-DD');
+      var dateFrom = moment().subtract( 6, 'months').format('YYYY-MM-DD');
+      var dateTo = today;
+      console.log("\nBegin Date: " + dateFrom);
+      console.log("End Date: " + dateTo);
       // gets the users tickers and puts them in an array or if empty renders page
       var n = user.stockPercentages.length;
       // build array of tickers
@@ -352,8 +287,8 @@ router.get('/stockview', function (req, res, next) {
 
         yahooFinance.historical({
           symbols: tickers,
-          from: beginDate,
-          to: endDate,
+          from: dateFrom,
+          to: dateTo,
           period: 'w'   //default period is weekly
         }, function (err, quotes) {
           if (err) {
@@ -401,7 +336,6 @@ router.get('/stockview', function (req, res, next) {
       }
     }
   });
-  //res.render('stockview');
 });
 
 
@@ -414,31 +348,6 @@ router.get('/managemoney', function (req, res, next) {
   var decodedToken = jwt.verify(sess.token, 'secret');
   var myUser = decodedToken.username.replace(" ", "");
 
-  /*
-      var dict = [{
-                      name: 'Microsoft Internet Explorer',
-                      y: 10
-                  }, {
-                      name: 'Chrome',
-                      y: 20,
-                      //sliced: true,
-                      //selected: true
-                  }, {
-                      name: 'Firefox',
-                      y: 30
-                  }, {
-                      name: 'Safari',
-                      y: 0
-                  }, {
-                      name: 'Opera',
-                      y: 0
-                  }, {
-                      name: 'UnAllocated Stocks',
-                      y: 40
-                  }];
-           */
-
-
   User.findOne({
     username: myUser
   }, function (err, user) {
@@ -448,33 +357,9 @@ router.get('/managemoney', function (req, res, next) {
     }
     else if (user) {
       dict = user.stockPercentages;
-
-      /*
-                //used for deleting a specific item from the array
-                for (var i = 0; i<dict.length; i++)
-                {
-                  if (dict[i]['name'] == 'Microsoft Internet Explorer')
-                  {
-                    dict.splice(i, 1);
-                  }
-                }
-                */
-
-      //used for adding an item to the beginning of the array
-      //dict.unshift({name: 'Microsoft Internet Explorer',y: 10});
-      //dict.unshift({name: 'Walmart',y: 10});
-
-
       res.render('managemoney', { dict: dict });
     }
   });
-
-
-
-  //res.render('managemoney', {dict:dict});
-
-
-
 });
 
 
@@ -526,79 +411,271 @@ router.post('/queryData', function (req, res) {
     //console.log(error);
     //console.log(resAjax.statusCode);
     if (!error && resAjax.statusCode == 200) {
-
-      let dateFrom = req.body.dateFrom;
-      let dateTo = req.body.dateTo;
       let period = req.body.period;
-      console.log("Date from: " + dateFrom);
-      console.log("Date to: " + dateTo);
-      var instaData = [];
-      var tickers = [];
       var sess = req.session;
       var decodedToken = jwt.verify(sess.token, 'secret');
       var name = decodedToken.username.replace(" ", "");      // THIS IS HOW WE HAVE TO GET THE USERNAME, NOTE: MUST USE THE REPLACE CASUE WHITESPACE
 
-      function querryData() {
-        return new Promise(
-          function (resolve, reject) {
-            User.findOne({
-              username: name
-            }, function (err, user) {
-              if (err) next(err);
-
-              if (!user) {
-                res.render('error.jade', { error: "Didnt find the user" });
-              } else {
-                var n = user.stockPercentages.length;
-                console.log("Size of sockPercentages: " + n);
-                user.stockPercentages.forEach(function (ticker) {
-                  if (ticker.name != 'UnAllocated Stocks') {
-                    tickers.push(ticker.name);
-                  }
-                });
-
-                yahooFinance.historical({
-                  symbols: tickers,
-                  from: dateFrom,
-                  to: dateTo,
-                  period: period   //default period is weekly
-                }, function (err, quotes) {
-                  if (err) {
-                    console.log("\n" + err);
-                    next(err);
-                    return reject(err);
-                  }
-                  if (quotes) {
-
-                    console.log("quotes: \n"+quotes);
-
-                  }
-                  else {
-                    // change it so renders error on page
-                    res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
-                  }
-                })
-                .then(
-                  function(quotes){
-                    instaData = quotes;
-                    resolve(instaData);
-                  }
-                )
-
-              }
-            });
-          }
-        )
-
+      if (period == "d") {
+        console.log("This should be happening client side...wtf... daily is client side");
+      } else if (period == "w") {
+        getStockWeek(name, req, res);
+      } else if (period == "m") {
+        getStockMonth(name, req, res);
+      } else if (period == "6m") {
+        getStock6Month(name, req, res);
+      } else if (period == 'y'){
+        getStockYear(name, req, res);
+      }else {
+        console.log("Some weird period error")
       }
-
-      querryData().then(
-        function (instaData) {
-          console.log("\nFinished with query returning now");
-          res.json({ chartData: instaData });
-        }).catch((err) => { throw err; });
     }
   });
 });
+
+// Query yahoo-finance for stock data this week with period of daily
+function getStockWeek(name, req, res) {
+  var instaData = [];
+  var tickers = [];
+  var today = moment().format('YYYY-MM-DD');
+  var dateFrom = moment().subtract(7, 'days').format('YYYY-MM-DD');
+  var dateTo = today;
+  function querryData() {
+    return new Promise(
+      function (resolve, reject) {
+        User.findOne({
+          username: name
+        }, function (err, user) {
+          if (err) next(err);
+          if (!user) {
+            res.render('error.jade', { error: "Didnt find the user" });
+          } else {
+            var n = user.stockPercentages.length;
+            console.log("Size of sockPercentages: " + n);
+            user.stockPercentages.forEach(function (ticker) {
+              if (ticker.name != 'UnAllocated Stocks') {
+                tickers.push(ticker.name);
+              }
+            });
+            yahooFinance.historical({
+              symbols: tickers,
+              from: dateFrom,
+              to: dateTo,
+              period: 'd'   //default period is daily
+            }, function (err, quotes) {
+              if (err) {
+                console.log("\n" + err);
+                next(err);
+                return reject(err);
+              }
+              if (quotes) {
+                console.log("quotes: \n" + quotes);
+              }
+              else {
+                // change it so renders error on page
+                res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
+              }
+            })
+              .then(
+              function (quotes) {
+                instaData = quotes;
+                resolve(instaData);
+              }
+              )
+          }
+        });
+      }
+    )
+  }
+  querryData().then(
+    function (instaData) {
+      console.log("\nFinished with query returning now");
+      res.json({ chartData: instaData });
+    }).catch((err) => { throw err; });
+}
+
+// Query yahoo-finance for stock data this month with period of daily
+function getStockMonth(name, req, res) {
+  var instaData = [];
+  var tickers = [];
+  var today = moment().format('YYYY-MM-DD');
+  var dateFrom = moment().subtract(1, 'months').format('YYYY-MM-DD');
+  var dateTo = today;
+  function querryData() {
+    return new Promise(
+      function (resolve, reject) {
+        User.findOne({
+          username: name
+        }, function (err, user) {
+          if (err) next(err);
+          if (!user) {
+            res.render('error.jade', { error: "Didnt find the user" });
+          } else {
+            var n = user.stockPercentages.length;
+            console.log("Size of sockPercentages: " + n);
+            user.stockPercentages.forEach(function (ticker) {
+              if (ticker.name != 'UnAllocated Stocks') {
+                tickers.push(ticker.name);
+              }
+            });
+            yahooFinance.historical({
+              symbols: tickers,
+              from: dateFrom,
+              to: dateTo,
+              period: 'd'   //default period is daily
+            }, function (err, quotes) {
+              if (err) {
+                console.log("\n" + err);
+                next(err);
+                return reject(err);
+              }
+              if (quotes) {
+                console.log("quotes: \n" + quotes);
+              }
+              else {
+                // change it so renders error on page
+                res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
+              }
+            })
+              .then(
+              function (quotes) {
+                instaData = quotes;
+                resolve(instaData);
+              }
+              )
+          }
+        });
+      }
+    )
+  }
+  querryData().then(
+    function (instaData) {
+      console.log("\nFinished with query returning now");
+      res.json({ chartData: instaData });
+    }).catch((err) => { throw err; });
+}
+
+// Query yahoo-finance for stock data last 6 months with period of weekly
+function getStock6Month(name, req, res) {
+  var instaData = [];
+  var tickers = [];
+  var today = moment().format('YYYY-MM-DD');
+  var dateFrom = moment().subtract(6, 'months').format('YYYY-MM-DD');
+  var dateTo = today;
+  function querryData() {
+    return new Promise(
+      function (resolve, reject) {
+        User.findOne({
+          username: name
+        }, function (err, user) {
+          if (err) next(err);
+          if (!user) {
+            res.render('error.jade', { error: "Didnt find the user" });
+          } else {
+            var n = user.stockPercentages.length;
+            console.log("Size of sockPercentages: " + n);
+            user.stockPercentages.forEach(function (ticker) {
+              if (ticker.name != 'UnAllocated Stocks') {
+                tickers.push(ticker.name);
+              }
+            });
+            yahooFinance.historical({
+              symbols: tickers,
+              from: dateFrom,
+              to: dateTo,
+              period: 'w'   //default period is weekly
+            }, function (err, quotes) {
+              if (err) {
+                console.log("\n" + err);
+                next(err);
+                return reject(err);
+              }
+              if (quotes) {
+                console.log("quotes: \n" + quotes);
+              }
+              else {
+                // change it so renders error on page
+                res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
+              }
+            })
+              .then(
+              function (quotes) {
+                instaData = quotes;
+                resolve(instaData);
+              }
+              )
+          }
+        });
+      }
+    )
+  }
+  querryData().then(
+    function (instaData) {
+      console.log("\nFinished with query returning now");
+      res.json({ chartData: instaData });
+    }).catch((err) => { throw err; });
+}
+
+
+// Query yahoo-finance for stock data this year with period of weekly
+function getStockYear(name, req, res) {
+  var instaData = [];
+  var tickers = [];
+  var today = moment().format('YYYY-MM-DD');
+  var dateFrom = moment().subtract(1, 'years').format('YYYY-MM-DD');
+  var dateTo = today;
+  function querryData() {
+    return new Promise(
+      function (resolve, reject) {
+        User.findOne({
+          username: name
+        }, function (err, user) {
+          if (err) next(err);
+          if (!user) {
+            res.render('error.jade', { error: "Didnt find the user" });
+          } else {
+            var n = user.stockPercentages.length;
+            console.log("Size of sockPercentages: " + n);
+            user.stockPercentages.forEach(function (ticker) {
+              if (ticker.name != 'UnAllocated Stocks') {
+                tickers.push(ticker.name);
+              }
+            });
+            yahooFinance.historical({
+              symbols: tickers,
+              from: dateFrom,
+              to: dateTo,
+              period: 'w'   //default period is weekly
+            }, function (err, quotes) {
+              if (err) {
+                console.log("\n" + err);
+                next(err);
+                return reject(err);
+              }
+              if (quotes) {
+                console.log("quotes: \n" + quotes);
+              }
+              else {
+                // change it so renders error on page
+                res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
+              }
+            })
+              .then(
+              function (quotes) {
+                instaData = quotes;
+                resolve(instaData);
+              }
+              )
+          }
+        });
+      }
+    )
+  }
+  querryData().then(
+    function (instaData) {
+      console.log("\nFinished with query returning now");
+      res.json({ chartData: instaData });
+    }).catch((err) => { throw err; });
+}
 
 module.exports = router;
