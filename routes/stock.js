@@ -266,10 +266,12 @@ router.get('/stockview', function (req, res, next) {
       // array to contain each dictionary of yahoo historical data for each ticker
       var historicalDict = [];
 
+      dict = user.stockPercentages;
+
       console.log("Size of sockPercentages: " + n);
       if (n < 2) {
         console.log("Rendering empty page\n");
-        res.render('stockview', { stockHtml: finalHtml, histDict: historicalDict });
+        res.render('stockview', { stockHtml: finalHtml, histDict: historicalDict, dict: dict });
       }
       else {
         user.stockPercentages.forEach(function (ticker) {
@@ -332,7 +334,8 @@ router.get('/stockview', function (req, res, next) {
         console.log("-- In finishHtml");
         console.log("Final Count : " + count + "\n");
         finalHtml += tempHtml;
-        res.render('stockview', { stockHtml: finalHtml, histDict: historicalDict });
+        
+        res.render('stockview', { stockHtml: finalHtml, histDict: historicalDict, dict: dict });
       }
     }
   });
@@ -426,6 +429,8 @@ router.post('/queryData', function (req, res) {
         getStock6Month(name, req, res);
       } else if (period == 'y'){
         getStockYear(name, req, res);
+      } else if (period == '5y'){
+        getStock5Year(name, req, res);
       }else {
         console.log("Some weird period error")
       }
@@ -646,6 +651,68 @@ function getStockYear(name, req, res) {
               from: dateFrom,
               to: dateTo,
               period: 'w'   //default period is weekly
+            }, function (err, quotes) {
+              if (err) {
+                console.log("\n" + err);
+                next(err);
+                return reject(err);
+              }
+              if (quotes) {
+                console.log("quotes: \n" + quotes);
+              }
+              else {
+                // change it so renders error on page
+                res.render('error.pug', { error: "Didnt find the users stock: " + quotes.symbol });
+              }
+            })
+              .then(
+              function (quotes) {
+                instaData = quotes;
+                resolve(instaData);
+              }
+              )
+          }
+        });
+      }
+    )
+  }
+  querryData().then(
+    function (instaData) {
+      console.log("\nFinished with query returning now");
+      res.json({ chartData: instaData });
+    }).catch((err) => { throw err; });
+}
+
+
+// Query yahoo-finance for stock data for last 5 years with period of monthly
+function getStock5Year(name, req, res) {
+  var instaData = [];
+  var tickers = [];
+  var today = moment().format('YYYY-MM-DD');
+  var dateFrom = moment().subtract(5, 'years').format('YYYY-MM-DD');
+  var dateTo = today;
+  function querryData() {
+    return new Promise(
+      function (resolve, reject) {
+        User.findOne({
+          username: name
+        }, function (err, user) {
+          if (err) next(err);
+          if (!user) {
+            res.render('error.jade', { error: "Didnt find the user" });
+          } else {
+            var n = user.stockPercentages.length;
+            console.log("Size of sockPercentages: " + n);
+            user.stockPercentages.forEach(function (ticker) {
+              if (ticker.name != 'UnAllocated Stocks') {
+                tickers.push(ticker.name);
+              }
+            });
+            yahooFinance.historical({
+              symbols: tickers,
+              from: dateFrom,
+              to: dateTo,
+              period: 'm'   //default period is weekly
             }, function (err, quotes) {
               if (err) {
                 console.log("\n" + err);

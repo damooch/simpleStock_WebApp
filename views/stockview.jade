@@ -6,6 +6,10 @@ block content
 		br
 		h2 Stock View Page
 		br
+		div#container.center(style='width:90%; height:600px;')
+		br
+		h2 Choose Stock View Period
+		br
 		div.modal#myModal
 			div.modal-content2
 				span.close x
@@ -26,6 +30,8 @@ block content
 				input(type='radio' name='periodQuery' value='6m')
 			label.queryPeriod Year 
 				input(type='radio' name='periodQuery' value='y')
+			label.queryPeriod 5 Year 
+				input(type='radio' name='periodQuery' value='5y')
 		button#button.btn Submit
 		br
 		div#stockCharts(style='padding-left:5%; padding-right:5%; padding-top:1%')
@@ -47,7 +53,16 @@ block scripts
 	script(src="https://code.highcharts.com/modules/data.js")
 	script(src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js")
 	script(src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8")
+
+
+
+	meta(charset='utf-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1')
+	link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+
+
 	script(type='text/javascript')
 		| var histDict =!{JSON.stringify(histDict)};
 		| var finalHtml =!{JSON.stringify(stockHtml)};
+		| var stockdict =!{JSON.stringify(dict)}; 
 	script(src="/js/stockView.js")
