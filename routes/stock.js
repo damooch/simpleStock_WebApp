@@ -291,7 +291,7 @@ router.get('/stockview', function (req, res, next) {
           symbols: tickers,
           from: dateFrom,
           to: dateTo,
-          period: 'w'   //default period is weekly
+          //period: 'w'   //default period is weekly     (API is depricated for periods)
         }, function (err, quotes) {
           if (err) {
             console.log("\n" + err);
@@ -466,7 +466,7 @@ function getStockWeek(name, req, res) {
               symbols: tickers,
               from: dateFrom,
               to: dateTo,
-              period: 'd'   //default period is daily
+              //period: 'd'   //default period is daily
             }, function (err, quotes) {
               if (err) {
                 console.log("\n" + err);

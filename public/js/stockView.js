@@ -298,59 +298,133 @@ window.onload = () => {
                     for (var key in histDict) {
                         var symbol = "";
                         console.log("How many loops = " + key.length);
+                        console.log("Key = " + key);
                         symbol = key;
                         console.log("On ticker : " + symbol + "\n");
-                        var url = "https://chartapi.finance.yahoo.com/instrument/1.0/" + symbol + "/chartdata;type=quote;range=1d/json/"
+                        //var url = "https://chartapi.finance.yahoo.com/instrument/1.0/" + symbol + "/chartdata;type=quote;range=1d/json/"  (depricated)
+
+                        //  CURRENT YAHOO JSON FORMAT (chart is base)
+                        // get gmt offset in
+                        //    chart:
+                        //         reult[0]
+                        //              meta:
+                        //                  gmtoffset: 
+                        //          
+                        //
+                        // get chart data
+                        //
+                        // get times in
+                        //    chart:
+                        //         reult[0]:
+                        //              timestamp:
+                        //       
+                        // get quote values in
+                        //     chart:
+                        //         reult[0]:
+                        //              indicators:
+                        //                     quote[0]:
+                        //                             high:
+                        //                             volume:
+                        //                             open:
+                        //                             low:
+                        //                             close:
+
+                        var url = "http://query1.finance.yahoo.com/v8/finance/chart/"+ symbol +"?range=1d&includePrePost=false&interval=15m&corsDomain=finance.yahoo.com&.trsc=finance"
+                        //+'?callback=?'
+                        // $.getJSON( url, {
+                        //     format: "json"
+                        // })
+                        // .done(function( json ) {
+                        //     // if(json.results.length > 0){                               
+                        //     // }
+                        //     var highs = [];
+                        //     var lows = [];
+                        //     var opens = [];
+                        //     var closes = [];
+                        //     var volumes = [];
+                        //     var adjCloses = [];
+                        //     var dates = [];
+                        //     var size = json.chart.result[0].timestamp.length;
+                        //     for(var i = 0; i<size; i++){
+                        //         var unixTime = json.chart.result[0].timestamp[i];   //    (- 14400) = gmt offset if desired subtract 14400 from unixTime
+                        //         //console.log("Timestamp unix: "+unixTime);
+                        //         var date = new Date(unixTime * 1000);
+                        //         //console.log("unixtime: "+date);
+                        //         // Hours part from the timestamp
+                        //         var hours = date.getHours();
+                        //         // Minutes part from the timestamp
+                        //         var minutes = "0" + date.getMinutes();
+                        //         // Seconds part from the timestamp
+                        //         var seconds = "0" + date.getSeconds();
+                        //         // Will display time in 10:30:23 format
+                        //         var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                        //         console.log("Formatted time: " + formattedTime);
+                        //         dates.push(formattedTime);
+                        //         opens.push(json.chart.result[0].indicators.quote[0].open[i]);
+                        //         highs.push(json.chart.result[0].indicators.quote[0].high[i]);
+                        //         lows.push(json.chart.result[0].indicators.quote[0].low[i]);
+                        //         closes.push(json.chart.result[0].indicators.quote[0].close[i]);
+                        //         volumes.push(json.chart.result[0].indicators.quote[0].volume[i]);
+                        //     }
+                        //     console.log("Highs: " + highs);
+                        //     console.log("Lows: " + lows);
+                        //     console.log("Closes: " + closes);
+                        //     console.log("Volumes: " + volumes);
+                        //     console.log("adjCloses: " + adjCloses);
+                        //     console.log("dates: " + dates);
+                        //     makeChart(ticker, opens, highs, lows, closes, volumes, adjCloses, dates);
+                        // });
 
                         getFile(url, "html")
                             .then(function (response, statusText, xhrObj) {
                                 //console.log(response, statusText, xhrObj);
                                 if (response.results.length == 1) {
                                     var rspnd = response.results[0];
-                                    //console.log(rspnd);
-                                    var filt = "{" + rspnd.match(/(?=\"series\")(.*?\n*)*(?=\} \))/igm) + "}";
+                                    console.log(rspnd);
+                                    //var filt = "{" + rspnd.match(/(?=\"series\")(.*?\n*)*(?=\} \))/igm) + "}";
                                     //console.log("Filtered:\n" + filt);
-                                    var myArr = JSON.parse(filt);
+                                    var json = JSON.parse(rspnd);
+
                                     //console.log("My array:\n" + myArr);
-                                    var filt2 = "{" + rspnd.match(/(?=\"ticker\")(.*?)(?=\,)/ig) + "}";
+                                    //var filt2 = "{" + rspnd.match(/(?=\"ticker\")(.*?)(?=\,)/ig) + "}";
                                     //console.log("filt2: " + filt2);
-                                    var tarray = JSON.parse(filt2);
-                                    var ticker = "";
-                                    for (val in tarray) {
-                                        ticker = tarray[val].toUpperCase();
-                                    }
+                                    // var tarray = JSON.parse(filt2);
+                                    // var ticker = "";
+                                    // for (val in tarray) {
+                                    //     ticker = tarray[val].toUpperCase();
+                                    // }
                                     //console.log("Ticker: " +ticker);
-                                    for (var key in myArr) {
-                                        var highs = [];
-                                        var lows = [];
-                                        var opens = [];
-                                        var closes = [];
-                                        var volumes = [];
-                                        var adjCloses = [];
-                                        var dates = [];
+                                    // for (var key in myArr) {
+                                    //     var highs = [];
+                                    //     var lows = [];
+                                    //     var opens = [];
+                                    //     var closes = [];
+                                    //     var volumes = [];
+                                    //     var adjCloses = [];
+                                    //     var dates = [];
                                         //console.log("\nkey: " + key + "\n");
-                                        for (var i = 0; i < myArr[key].length; i++) {
-                                            var unixTime = myArr[key][i].Timestamp;
-                                            //console.log("Timestamp unix: "+unixTime);
-                                            var date = new Date(unixTime * 1000);
-                                            //console.log("unixtime: "+date);
-                                            // Hours part from the timestamp
-                                            var hours = date.getHours();
-                                            // Minutes part from the timestamp
-                                            var minutes = "0" + date.getMinutes();
-                                            // Seconds part from the timestamp
-                                            var seconds = "0" + date.getSeconds();
-                                            // Will display time in 10:30:23 format
-                                            var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-                                            console.log("Formatted time: " + formattedTime);
-                                            dates.push(formattedTime);
-                                            opens.push(myArr[key][i].open);
-                                            highs.push(myArr[key][i].high);
-                                            lows.push(myArr[key][i].low);
-                                            closes.push(myArr[key][i].close);
-                                            volumes.push(myArr[key][i].volume);
-                                        }
-                                        console.log("\n\n");
+                                        // for (var i = 0; i < myArr[key].length; i++) {
+                                        //     var unixTime = myArr[key][i].Timestamp;
+                                        //     //console.log("Timestamp unix: "+unixTime);
+                                        //     var date = new Date(unixTime * 1000);
+                                        //     //console.log("unixtime: "+date);
+                                        //     // Hours part from the timestamp
+                                        //     var hours = date.getHours();
+                                        //     // Minutes part from the timestamp
+                                        //     var minutes = "0" + date.getMinutes();
+                                        //     // Seconds part from the timestamp
+                                        //     var seconds = "0" + date.getSeconds();
+                                        //     // Will display time in 10:30:23 format
+                                        //     var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                                        //     console.log("Formatted time: " + formattedTime);
+                                        //     dates.push(formattedTime);
+                                        //     opens.push(myArr[key][i].open);
+                                        //     highs.push(myArr[key][i].high);
+                                        //     lows.push(myArr[key][i].low);
+                                        //     closes.push(myArr[key][i].close);
+                                        //     volumes.push(myArr[key][i].volume);
+                                        // }
+                                        // console.log("\n\n");
                                         // console.log("\nOpens: " + opens);
                                         // console.log("Highs: " + highs);
                                         // console.log("Lows: " + lows);
@@ -358,8 +432,8 @@ window.onload = () => {
                                         // console.log("Volumes: " + volumes);
                                         // console.log("adjCloses: " + adjCloses);
                                         // console.log("dates: " + dates);
-                                        makeChart(ticker, opens, highs, lows, closes, volumes, adjCloses, dates);
-                                    }
+                                        // makeChart(ticker, opens, highs, lows, closes, volumes, adjCloses, dates);
+                                    //}
                                 }
                             })
                             .catch(function (xhrObj, textStatus, err) {
@@ -371,6 +445,17 @@ window.onload = () => {
         });
     });
 
+    function getIntradayJSON(theURL, type, callback) {
+        
+        $.getJSON( theURL+'?callback=?', {
+            format: "json"
+        })
+        .done(function( json ) {
+                
+        });
+    };
+
+    //Made to get data from pages without https
     function getFile(theURL, type, callback) {
 
         jQuery.ajax = (function (_ajax) {
